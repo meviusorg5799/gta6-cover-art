@@ -1,0 +1,149 @@
+/* Neon Coast Cover Maker — dark neon editor shell. Lettering on the cover itself
+   is drawn on canvas (see src/cover.js) with the vendored Noto Sans fonts. */
+@font-face {
+  font-family: "Neon Coast Display";
+  src: url("./fonts/NotoSans-CondensedExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neon Coast Serif";
+  src: url("./fonts/NotoSerif-ExtraBoldItalic.woff2") format("woff2");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --bg: #12081f;
+  --bg2: #1d0f33;
+  --panel: #221239;
+  --line: #3d2560;
+  --ink: #f6efff;
+  --muted: #b9a8d6;
+  --pink: #ff2e88;
+  --cyan: #22e6ff;
+  --gold: #ffb347;
+  --sunset: linear-gradient(90deg, #ff7a18, #ff2e88 55%, #b537f2);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body {
+  background: radial-gradient(1200px 600px at 80% -10%, #3b1155 0%, transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, #123a5c 0%, transparent 55%), var(--bg);
+  color: var(--ink);
+  font: 15px/1.45 system-ui, "Segoe UI", sans-serif;
+}
+
+.topbar {
+  display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+  justify-content: space-between; padding: 18px 28px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 46, 136, 0.12), transparent);
+}
+.brand { display: flex; gap: 14px; align-items: center; }
+.brand-mark {
+  display: grid; place-items: center; width: 52px; height: 52px; border-radius: 12px;
+  font-family: "Neon Coast Black", "Arial Narrow", sans-serif; font-size: 22px; letter-spacing: 1px;
+  color: #fff; background: var(--sunset);
+  box-shadow: 0 0 24px rgba(255, 46, 136, 0.55);
+}
+.brand h1 {
+  margin: 0; font-family: "Neon Coast Black", "Arial Narrow", sans-serif;
+  font-size: 30px; letter-spacing: 1.5px; text-transform: uppercase; line-height: 1;
+}
+.brand h1 span {
+  background: var(--sunset); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.brand p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+.steps { display: flex; gap: 10px; flex-wrap: wrap; }
+.steps span {
+  padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04); font-size: 13px; color: var(--muted);
+}
+.steps b {
+  display: inline-grid; place-items: center; width: 20px; height: 20px; margin-right: 6px;
+  border-radius: 50%; background: var(--pink); color: #fff; font-size: 12px;
+}
+
+.app { display: flex; gap: 28px; padding: 24px 28px; align-items: flex-start; }
+.panel {
+  width: 320px; flex: none; display: flex; flex-direction: column; gap: 18px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px;
+}
+.group h2 {
+  margin: 0 0 10px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan);
+}
+.group label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 13px; margin-bottom: 10px; }
+.group input[type="text"] {
+  font: inherit; padding: 9px 10px; border-radius: 8px; border: 1px solid var(--line);
+  background: #170a2a; color: var(--ink);
+}
+.group input[type="text"]:focus { outline: 2px solid var(--cyan); outline-offset: 1px; }
+.hint { margin: 6px 0 0; font-size: 12px; color: var(--muted); font-weight: 400; }
+
+.upload { display: block; cursor: pointer; }
+.upload input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.upload span {
+  display: block; text-align: center; padding: 12px; border-radius: 10px;
+  background: var(--sunset); color: #fff; font-weight: 800; letter-spacing: 0.5px;
+}
+.thumbs { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.thumbs img {
+  width: 64px; height: 64px; object-fit: cover; border-radius: 8px; cursor: pointer;
+  border: 2px solid transparent;
+}
+.thumbs img.selected { border-color: var(--cyan); box-shadow: 0 0 10px rgba(34, 230, 255, 0.6); }
+.thumbs img:hover { border-color: var(--pink); }
+
+.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice {
+  font: inherit; font-weight: 700; font-size: 13px; padding: 8px 12px; cursor: pointer;
+  border-radius: 999px; border: 1px solid var(--line); background: #170a2a; color: var(--ink);
+}
+.choice:hover { border-color: var(--pink); }
+.choice.active { background: var(--sunset); border-color: transparent; color: #fff; }
+
+.ghost {
+  font: inherit; font-weight: 700; font-size: 13px; padding: 8px 10px; cursor: pointer;
+  border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--ink);
+}
+.ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+.row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.slider input[type="range"] { width: 100%; accent-color: var(--pink); }
+
+.export {
+  width: 100%; margin-top: 12px; padding: 14px; cursor: pointer;
+  font: inherit; font-size: 17px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  border: 0; border-radius: 12px; color: #fff; background: var(--sunset);
+  box-shadow: 0 6px 24px rgba(255, 46, 136, 0.45);
+}
+.export:hover { filter: brightness(1.12); }
+#status { min-height: 1.2em; margin: 8px 0 0; font-size: 13px; color: var(--cyan); }
+
+.stage-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+#stage {
+  width: min(72vh, 100%); height: auto; border-radius: 6px; display: block;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--line);
+  background: #2b1838;
+}
+.stage-hint { margin: 0; color: var(--muted); font-size: 13px; }
+
+.foot { padding: 0 28px 24px; color: var(--muted); font-size: 12px; }
+
+/* Screenshot scenes: ?shot=cover hides the editor and shows the cover alone. */
+body.shot-cover .topbar, body.shot-cover .panel, body.shot-cover .foot, body.shot-cover .stage-hint { display: none; }
+body.shot-cover .app { padding: 0; }
+body.shot-cover .stage-wrap { display: contents; }
+body.shot-cover #stage { position: fixed; inset: 0; width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; }
+body.shot-editor .topbar .steps { display: none; }
+/* Compact editor for screenshots, so the export button fits in the frame. */
+body.shot-editor .topbar { padding: 12px 28px; }
+body.shot-editor .app { padding: 16px 28px; gap: 20px; }
+body.shot-editor .panel { gap: 12px; padding: 14px; }
+body.shot-editor .group h2 { margin-bottom: 6px; }
+body.shot-editor .thumbs img { width: 48px; height: 48px; }
+body.shot-editor .choice { padding: 6px 10px; }
+body.shot-editor .group input[type="text"] { padding: 7px 9px; }
+body.shot-editor .export { padding: 11px; }

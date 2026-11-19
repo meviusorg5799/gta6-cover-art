@@ -1,8 +1,8 @@
 # Neon Coast Cover Maker
 
-[![make.fun bounty](https://img.shields.io/badge/make.fun-bounty-ff2e88)](https://make.fun/bounty/gta6-cover-art-01)
-[![make.fun](https://img.shields.io/badge/built%20for-make.fun-7b1e6e)](https://make.fun)
-[![License: MIT](https://img.shields.io/badge/License-MIT-22e6ff)](./LICENSE)
+[![make.fun · gta6-cover-art-01](https://make.fun/badge/gta6-cover-art-01.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+[![rank](https://make.fun/badge/gta6-cover-art-01/meviusorg5799/gta6-cover-art/rank.svg)](https://make.fun/bounty/gta6-cover-art-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+[![reward](https://make.fun/badge/gta6-cover-art-01/meviusorg5799/gta6-cover-art/reward.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
 
 An offline web app that turns your photo and a caption into GTA 6-style cover
 art — the multi-panel poster look with bold lettering and a Vice City sunset /
